@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>genLoader Test</title>
+</head>
+
+<body>
+    <div id="target"></div>
+    <script>
+        // CLIENT
+        async function* genLoader(url, passes = 5) {
+            let iCurrentPass = Math.max(passes, 0);
+            let oPayload;
+            while (iCurrentPass--) {
+                oPayload = await fetch(url + (url.includes("?") ? "&" : "?") + `compr=${iCurrentPass}`);
+                yield oPayload;
+            }
+            return oPayload;
+        }
+
+        async function loadImg(targetElementId, url, passes) {
+            const targetElement = document.getElementById(targetElementId);
+            if (!targetElement)
+                return;
+            const placeResultIntoTarget = (fetchValue, targetElement) => targetElement.innerHTML = fetchValue.text();
+            const imgLoader = genLoader(url);
+            let result = imgLoader.next();
+            while (!result.done) {
+                placeResultIntoTarget(await result.value, targetElement);
+                result = imgLoader.next();
+            }
+            placeResultIntoTarget(await result.value, targetElement);
+        }
+
+        loadImg("target", "http://localhost:3000/dummyData/myImage.jpg");
+    </script>
+</body>
+
+</html>
